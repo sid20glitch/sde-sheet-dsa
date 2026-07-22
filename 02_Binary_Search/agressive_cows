@@ -1,0 +1,52 @@
+import java.util.*;
+
+class Solution {
+
+    private Boolean cowsPlaced(int[] arr , int minDistance ,int k) {
+	int cowsPlaced = 1;
+	int lastPlaced = arr[0];
+	for(int i = 1; i < arr.length; i++) {
+		if(arr[i] - lastPlaced >= minDistance) {
+			cowsPlaced++;
+			lastPlaced = arr[i];
+		}
+		
+		if(cowsPlaced >= k) return true;
+	}
+	return false;
+	
+    }
+
+    public int cows(int[] arr, int k) {
+	Arrays.sort(arr);
+	
+	int low = 1 , high = arr[arr.length - 1] - arr[0];
+	int ans = 0;
+	while(low <= high) {
+		int mid = low + (high - low) / 2;
+		
+		if(cowsPlaced(arr , mid , k)) {
+			ans = mid;
+			low = mid + 1;	
+		}else {
+			high = mid - 1;
+		}
+	}
+	return ans;
+    }
+
+}
+
+public class aggressiveCows {
+    public static void main(String[] args) {
+
+        int[] arr = {0, 3, 4, 7, 10, 9};
+        int k = 4;
+
+        Solution obj = new Solution();
+
+        int ans = obj.cows(arr, k);
+
+        System.out.println(ans);
+    }
+}
