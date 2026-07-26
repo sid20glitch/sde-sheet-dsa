@@ -1,0 +1,70 @@
+class Queue {
+    int[] queue;
+    int front;
+    int rear;
+    int size;
+
+    Queue(int size) {
+        this.size = size;
+        queue = new int[size];
+        front = -1;
+        rear = -1;
+    }
+
+    // Add element to the queue
+    void enqueue(int value) {
+        if (rear == size - 1) {
+            System.out.println("Queue is Full");
+        } else {
+            if (front == -1) {
+                front = 0;
+            }
+
+            rear++;
+            queue[rear] = value;
+            System.out.println(value + " inserted");
+        }
+    }
+
+    // Remove element from the queue
+    void dequeue() {
+        if (front == -1 || front > rear) {
+            System.out.println("Queue is Empty");
+        } else {
+            System.out.println(queue[front] + " removed");
+            front++;
+        }
+    }
+
+    // Display queue elements
+    void display() {
+        if (front == -1 || front > rear) {
+            System.out.println("Queue is Empty");
+        } else {
+            System.out.print("Queue: ");
+
+            for (int i = front; i <= rear; i++) {
+                System.out.print(queue[i] + " ");
+            }
+
+            System.out.println();
+        }
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+
+        Queue q = new Queue(5);
+
+        q.enqueue(10);
+        q.enqueue(20);
+        q.enqueue(30);
+
+        q.display();
+
+        q.dequeue();
+
+        q.display();
+    }
+}
