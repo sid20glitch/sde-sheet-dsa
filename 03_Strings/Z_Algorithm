@@ -1,0 +1,55 @@
+public class ZAlgorithm {
+
+    public static int[] zAlgorithm(String s) {
+
+        int n = s.length();
+        int[] z = new int[n];
+
+        int L = 0;
+        int R = 0;
+
+        for (int i = 1; i < n; i++) {
+
+            if (i > R) {
+
+                while(i + z[i] < n &&
+                        s.charAt(z[i]) == s.charAt(i + z[i])) {
+                    z[i]++;
+                }
+
+                if (z[i] > 0) {
+                    L = i;
+                    R = i + z[i] - 1;
+                }
+
+            } else {
+
+                int k = i - L;
+
+                z[i] = Math.min(z[k], R - i + 1);
+
+                while(i + z[i] < n &&
+                        s.charAt(z[i]) == s.charAt(i + z[i])) {
+                    z[i]++;
+                }
+
+                if (i + z[i] - 1 > R) {
+                    L = i;
+                    R = i + z[i] - 1;
+                }
+            }
+        }
+
+        return z;
+    }
+
+    public static void main(String[] args) {
+
+        String s = "aabcaabxaaaz";
+
+        int[] z = zAlgorithm(s);
+
+        for (int x : z)
+            System.out.print(x + " ");
+    }
+}
