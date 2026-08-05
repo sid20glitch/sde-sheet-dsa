@@ -1,0 +1,17 @@
+class Solution {
+    public String countAndSay(int n) {
+        String s = "1";
+        while(--n > 0){
+            StringBuilder ans = new StringBuilder();
+            for(int i = 0;i < s.length();) {
+                int j = i;
+                while(j < s.length() && s.charAt(i) == s.charAt(j)) j++;
+                ans.append(j - i);
+                ans.append(s.charAt(i));
+                i = j;
+            }
+            s = ans.toString();
+        }
+        return s;
+    }
+}
